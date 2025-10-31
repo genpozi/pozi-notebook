@@ -220,6 +220,35 @@ open-notebook/
 └── surreal_data/      # Database files
 ```
 
+### 🔐 Authentication & User Accounts
+
+Open Notebook now supports multi-user authentication with secure JWT tokens!
+
+**First Time Setup:**
+1. On first startup, a default admin account is created:
+   - **Email**: `admin@localhost`
+   - **Password**: `change-me-immediately`
+   - ⚠️ **IMPORTANT**: Change this password immediately after first login!
+
+**Creating User Accounts:**
+1. Navigate to `/signup` to create a new account
+2. Enter your name, email, and password (minimum 8 characters)
+3. You'll be automatically logged in after signup
+
+**Signing In:**
+1. Go to `/login` and enter your email and password
+2. Your session will remain active for 7 days
+3. Click "Sign Out" in the sidebar when done
+
+**Features:**
+- ✅ Secure password hashing with Argon2
+- ✅ JWT token authentication
+- ✅ User profile display in sidebar
+- ✅ Data isolation between users
+- ✅ Admin account for system management
+
+**Note**: Authentication is always enabled in v1.1+. Each user has their own private workspace with notebooks, sources, and notes.
+
 ### 🆘 Quick Troubleshooting
 
 | Problem | Solution |
@@ -321,7 +350,8 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **⚡ Reasoning Model Support**: Full support for thinking models like DeepSeek-R1 and Qwen3
 - **🔧 Content Transformations**: Powerful customizable actions to summarize and extract insights
 - **🌐 Comprehensive REST API**: Full programmatic access for custom integrations [![API Docs](https://img.shields.io/badge/API-Documentation-blue?style=flat-square)](http://localhost:5055/docs)
-- **🔐 Optional Password Protection**: Secure public deployments with authentication
+- **👥 Multi-User Support**: Full JWT authentication with user accounts and data isolation
+- **🔐 Secure Authentication**: Email/password login with Argon2 password hashing
 - **📊 Fine-Grained Context Control**: Choose exactly what to share with AI models
 - **📎 Citations**: Get answers with proper source citations
 
@@ -367,7 +397,8 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **Bookmark Integration**: Connect with your favorite bookmarking apps
 
 ### Recently Completed ✅
-- **Next.js Frontend**: Modern React-based frontend with improved performance
+- **Multi-User Authentication**: Full JWT-based authentication system with user accounts (v1.1)
+- **Next.js Frontend**: Modern React-based frontend with improved performance (v1.0)
 - **Comprehensive REST API**: Full programmatic access to all functionality
 - **Multi-Model Support**: 16+ AI providers including OpenAI, Anthropic, Ollama, LM Studio
 - **Advanced Podcast Generator**: Professional multi-speaker podcasts with Episode Profiles
