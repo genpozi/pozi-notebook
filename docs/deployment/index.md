@@ -15,33 +15,47 @@ This section provides comprehensive guides for deploying Open Notebook in differ
 - Supports all major AI providers
 - Perfect for local development and testing
 
-### 2. [Single Container Deployment](single-container.md)
+### 2. [Cloud Platform Deployment](cloud-platforms.md)
+**Best for production hosting**
+- Railway, Render, DigitalOcean, AWS guides
+- Managed services with automatic SSL
+- Scalable and production-ready
+- Step-by-step platform-specific instructions
+
+### 3. [Single Container Deployment](single-container.md)
 **Best for platforms like PikaPods**
 - All-in-one container solution
 - Simplified deployment process
 - Ideal for cloud hosting platforms
 - Lower resource requirements
 
-### 3. [Development Setup](development.md)
+### 4. [Development Setup](development.md)
 **For contributors and advanced users**
 - Local development environment
 - Source code installation
 - Development tools and debugging
 - Contributing to the project
 
-### 4. [Reverse Proxy Configuration](reverse-proxy.md)
+### 5. [Reverse Proxy Configuration](reverse-proxy.md)
 **For production deployments with custom domains**
 - nginx, Caddy, Traefik configurations
 - Custom domain setup
 - SSL/HTTPS configuration
 - Runtime API URL configuration
 
-### 5. [Security Configuration](security.md)
+### 6. [Security Configuration](security.md)
 **Essential for public deployments**
-- Password protection setup
-- Security best practices
+- Multi-user authentication setup
+- Password protection and best practices
 - Production deployment considerations
 - Troubleshooting security issues
+
+### 7. [Production Checklist](production-checklist.md)
+**Complete pre-launch verification**
+- Security configuration checklist
+- Performance optimization guide
+- Monitoring and backup setup
+- Maintenance procedures
 
 ## 🎯 Choose Your Deployment Method
 
@@ -51,8 +65,14 @@ This section provides comprehensive guides for deploying Open Notebook in differ
 - You need multiple AI provider support
 - You're running locally or on a private server
 
+### Use Cloud Platform Deployment if:
+- You want production-ready hosting
+- You need automatic SSL and custom domains
+- You want managed infrastructure
+- You're deploying for team or public use
+
 ### Use Single Container if:
-- You're deploying on PikaPods, Railway, or similar platforms
+- You're deploying on PikaPods or similar platforms
 - You want the simplest possible deployment
 - You have resource constraints
 - You don't need to scale services independently
@@ -120,30 +140,39 @@ See the [Model Providers Guide](../model-providers.md) for detailed setup instru
 
 ## 🌍 Environment Variables
 
-### Core Configuration
+For a complete reference of all environment variables, see the [Environment Variables Guide](environment-variables.md).
+
+### Quick Reference
+
+**Required:**
 ```bash
-# Database (auto-configured in Docker)
+# Database
 SURREAL_URL=ws://localhost:8000/rpc
 SURREAL_USER=root
 SURREAL_PASSWORD=root
 SURREAL_NAMESPACE=open_notebook
 SURREAL_DATABASE=production
-
-# Security (optional)
-OPEN_NOTEBOOK_PASSWORD=your_secure_password
 ```
 
-### AI Provider Keys
+**Recommended:**
 ```bash
-# OpenAI (recommended)
+# At least one AI provider
 OPENAI_API_KEY=sk-...
+```
 
-# Additional providers (optional)
+**Optional:**
+```bash
+# Additional AI providers
 ANTHROPIC_API_KEY=sk-ant-...
 GOOGLE_API_KEY=AIzaSy...
 GROQ_API_KEY=gsk_...
 OLLAMA_API_BASE=http://localhost:11434
+
+# API configuration (for remote access)
+API_URL=http://your-server-ip:5055
 ```
+
+See [Environment Variables Guide](environment-variables.md) for detailed documentation.
 
 ## 🆘 Getting Help
 

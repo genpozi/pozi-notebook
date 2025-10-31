@@ -1,6 +1,7 @@
 <a id="readme-top"></a>
 
 <!-- [![Contributors][contributors-shield]][contributors-url] -->
+[![Version](https://img.shields.io/badge/version-1.1.0--beta-blue.svg)](https://github.com/lfnovo/open-notebook/releases)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -291,6 +292,25 @@ Open Notebook now supports multi-user authentication with secure JWT tokens!
 - Your browser loads the frontend from port 8502
 - The frontend needs to know where to find the API - when accessing remotely, set: `API_URL=http://your-server-ip:5055`
 - **Behind reverse proxy?** You only need to proxy to port 8502 now! See [Reverse Proxy Guide](docs/deployment/reverse-proxy.md)
+
+## 🌐 Production Deployment
+
+Ready to deploy Open Notebook for your team or publicly? We have comprehensive guides for various platforms:
+
+### Cloud Platforms
+- **[Railway](docs/deployment/cloud-platforms.md#-railway-deployment)** - Quick deployment with managed services ($5-20/mo)
+- **[Render](docs/deployment/cloud-platforms.md#-render-deployment)** - Simple setup with automatic SSL ($7-25/mo)
+- **[DigitalOcean](docs/deployment/cloud-platforms.md#-digitalocean-app-platform)** - Predictable pricing and full control ($6-40/mo)
+- **[AWS ECS/Fargate](docs/deployment/cloud-platforms.md#️-aws-ecsfargate)** - Enterprise-grade scalability
+- **[Self-hosted VPS](docs/deployment/cloud-platforms.md#-self-hosted-vps)** - Maximum control and privacy ($5-20/mo)
+
+### Deployment Resources
+- **[Cloud Platform Guide](docs/deployment/cloud-platforms.md)** - Step-by-step platform-specific instructions
+- **[Environment Variables Reference](docs/deployment/environment-variables.md)** - Complete configuration guide
+- **[Production Checklist](docs/deployment/production-checklist.md)** - Security and optimization checklist
+- **[Reverse Proxy Setup](docs/deployment/reverse-proxy.md)** - Custom domains and SSL configuration
+
+**Note**: Vercel, Netlify, and similar serverless platforms are **not compatible** with Open Notebook due to requirements for persistent services and background workers.
 
 ## Star History
 
