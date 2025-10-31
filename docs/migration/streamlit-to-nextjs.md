@@ -218,7 +218,7 @@ Check your Docker images:
 docker images | grep open_notebook
 ```
 
-Or check the [releases page](https://github.com/lfnovo/open-notebook/releases) for version numbers.
+Or check the [releases page](https://github.com/genpozi/pozi-notebook/releases) for version numbers.
 
 ## Frequently Asked Questions
 
@@ -249,7 +249,7 @@ You can rollback to any previous version using the instructions above. However, 
 
 ### How do I report issues with the new UI?
 
-Please report any issues on our [GitHub Issues page](https://github.com/lfnovo/open-notebook/issues) or join our [Discord server](https://discord.gg/37XJPXfz2w) for help.
+Please report any issues on our [GitHub Issues page](https://github.com/genpozi/pozi-notebook/issues) or join our [Discord server](https://discord.gg/37XJPXfz2w) for help.
 
 ## New Features in Next.js UI
 
@@ -267,7 +267,7 @@ If you encounter any issues during migration:
 1. **Check the logs**: `docker compose logs -f`
 2. **Review this guide**: Most issues are covered in Troubleshooting
 3. **Join Discord**: [discord.gg/37XJPXfz2w](https://discord.gg/37XJPXfz2w)
-4. **Open an issue**: [GitHub Issues](https://github.com/lfnovo/open-notebook/issues)
+4. **Open an issue**: [GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)
 
 ## Post-Migration Checklist
 
@@ -285,4 +285,4 @@ After successfully migrating, complete these steps:
 
 ---
 
-**Questions?** Join our [Discord community](https://discord.gg/37XJPXfz2w) or [open an issue](https://github.com/lfnovo/open-notebook/issues) on GitHub.
+**Questions?** Join our [Discord community](https://discord.gg/37XJPXfz2w) or [open an issue](https://github.com/genpozi/pozi-notebook/issues) on GitHub.

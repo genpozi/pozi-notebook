@@ -523,7 +523,7 @@ ls -la ./surreal_data/
 ## 🆘 Getting Help
 
 - **Discord**: [Join our community](https://discord.gg/37XJPXfz2w)
-- **GitHub Issues**: [Report bugs](https://github.com/lfnovo/open-notebook/issues)
+- **GitHub Issues**: [Report bugs](https://github.com/genpozi/pozi-notebook/issues)
 - **Documentation**: [Full docs](../index.md)
 
 ---

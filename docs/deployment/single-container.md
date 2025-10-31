@@ -187,7 +187,7 @@ To build the single-container image yourself:
 
 ```bash
 # Clone the repository
-git clone https://github.com/lfnovo/open-notebook
+git clone https://github.com/genpozi/pozi-notebook
 cd open-notebook
 
 # Build the single-container image
@@ -335,7 +335,7 @@ docker stats open-notebook-single
 ### Community Support
 
 - **[Discord Server](https://discord.gg/37XJPXfz2w)** - Real-time help and discussion
-- **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Bug reports and feature requests
+- **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Bug reports and feature requests
 - **[Documentation](../index.md)** - Complete documentation
 
 ### Common Solutions

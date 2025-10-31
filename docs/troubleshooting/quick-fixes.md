@@ -282,7 +282,7 @@ docker stats --no-stream
 ### Get help:
 
 1. **[Discord](https://discord.gg/37XJPXfz2w)** - Fastest response from community
-2. **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Bug reports and features
+2. **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Bug reports and features
 3. **[Full Troubleshooting Guide](common-issues.md)** - More detailed solutions
 
 **Before asking:**

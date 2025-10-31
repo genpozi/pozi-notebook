@@ -1494,4 +1494,4 @@ The API uses semantic versioning. Breaking changes will increment the major vers
 
 ---
 
-This API reference provides comprehensive coverage of Open Notebook's REST API. For additional examples and integration patterns, check the [GitHub repository](https://github.com/lfnovo/open-notebook) and join our [Discord community](https://discord.gg/37XJPXfz2w).
+This API reference provides comprehensive coverage of Open Notebook's REST API. For additional examples and integration patterns, check the [GitHub repository](https://github.com/genpozi/pozi-notebook) and join our [Discord community](https://discord.gg/37XJPXfz2w).

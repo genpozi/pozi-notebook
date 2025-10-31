@@ -124,7 +124,7 @@ Create professional multi-speaker podcasts from your research.
 ## Need Help?
 
 - 💬 **[Discord Community](https://discord.gg/37XJPXfz2w)** - Get help with advanced features
-- 🐛 **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Report feature requests
+- 🐛 **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Report feature requests
 - 📖 **[Troubleshooting](../troubleshooting/index.md)** - Common feature issues
 
 ---

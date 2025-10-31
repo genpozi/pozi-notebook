@@ -439,7 +439,7 @@ docker compose -p 8503:8502 up -d
 2. **Verify environment**: `docker compose config`
 3. **Test connectivity**: `docker compose exec open_notebook ping surrealdb`
 4. **Join Discord**: [discord.gg/37XJPXfz2w](https://discord.gg/37XJPXfz2w)
-5. **GitHub Issues**: [github.com/lfnovo/open-notebook/issues](https://github.com/lfnovo/open-notebook/issues)
+5. **GitHub Issues**: [github.com/genpozi/pozi-notebook/issues](https://github.com/genpozi/pozi-notebook/issues)
 
 ## 🎯 Next Steps
 

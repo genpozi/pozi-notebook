@@ -1,10 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { getApiUrl } from '@/lib/config'
+import type { User, LoginCredentials, SignupCredentials, AuthResponse } from '@/lib/types/auth'
 
 interface AuthState {
   isAuthenticated: boolean
   token: string | null
+  user: User | null
   isLoading: boolean
   error: string | null
   lastAuthCheck: number | null
@@ -13,7 +15,8 @@ interface AuthState {
   authRequired: boolean | null
   setHasHydrated: (state: boolean) => void
   checkAuthRequired: () => Promise<boolean>
-  login: (password: string) => Promise<boolean>
+  login: (credentials: LoginCredentials) => Promise<boolean>
+  signup: (credentials: SignupCredentials) => Promise<boolean>
   logout: () => void
   checkAuth: () => Promise<boolean>
 }
@@ -23,6 +26,7 @@ export const useAuthStore = create<AuthState>()(
     (set, get) => ({
       isAuthenticated: false,
       token: null,
+      user: null,
       isLoading: false,
       error: null,
       lastAuthCheck: null,
@@ -74,24 +78,32 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
-      login: async (password: string) => {
+      login: async (credentials: LoginCredentials) => {
         set({ isLoading: true, error: null })
         try {
           const apiUrl = await getApiUrl()
 
-          // Test auth with notebooks endpoint
-          const response = await fetch(`${apiUrl}/api/notebooks`, {
-            method: 'GET',
+          const response = await fetch(`${apiUrl}/api/auth/signin`, {
+            method: 'POST',
             headers: {
-              'Authorization': `Bearer ${password}`,
               'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(credentials)
           })
           
           if (response.ok) {
+            const data: AuthResponse = await response.json()
+            const user: User = {
+              user_id: data.user_id,
+              email: data.email,
+              name: data.name,
+              role: data.role
+            }
+            
             set({ 
               isAuthenticated: true, 
-              token: password, 
+              token: data.token,
+              user,
               isLoading: false,
               lastAuthCheck: Date.now(),
               error: null
@@ -100,20 +112,26 @@ export const useAuthStore = create<AuthState>()(
           } else {
             let errorMessage = 'Authentication failed'
             if (response.status === 401) {
-              errorMessage = 'Invalid password. Please try again.'
+              errorMessage = 'Invalid email or password. Please try again.'
             } else if (response.status === 403) {
               errorMessage = 'Access denied. Please check your credentials.'
             } else if (response.status >= 500) {
               errorMessage = 'Server error. Please try again later.'
             } else {
-              errorMessage = `Authentication failed (${response.status})`
+              try {
+                const errorData = await response.json()
+                errorMessage = errorData.detail || `Authentication failed (${response.status})`
+              } catch {
+                errorMessage = `Authentication failed (${response.status})`
+              }
             }
             
             set({ 
               error: errorMessage,
               isLoading: false,
               isAuthenticated: false,
-              token: null
+              token: null,
+              user: null
             })
             return false
           }
@@ -133,7 +151,86 @@ export const useAuthStore = create<AuthState>()(
             error: errorMessage,
             isLoading: false,
             isAuthenticated: false,
-            token: null
+            token: null,
+            user: null
+          })
+          return false
+        }
+      },
+
+      signup: async (credentials: SignupCredentials) => {
+        set({ isLoading: true, error: null })
+        try {
+          const apiUrl = await getApiUrl()
+
+          const response = await fetch(`${apiUrl}/api/auth/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+          })
+          
+          if (response.ok) {
+            const data: AuthResponse = await response.json()
+            const user: User = {
+              user_id: data.user_id,
+              email: data.email,
+              name: data.name,
+              role: data.role
+            }
+            
+            set({ 
+              isAuthenticated: true, 
+              token: data.token,
+              user,
+              isLoading: false,
+              lastAuthCheck: Date.now(),
+              error: null
+            })
+            return true
+          } else {
+            let errorMessage = 'Signup failed'
+            if (response.status === 409) {
+              errorMessage = 'An account with this email already exists.'
+            } else if (response.status >= 500) {
+              errorMessage = 'Server error. Please try again later.'
+            } else {
+              try {
+                const errorData = await response.json()
+                errorMessage = errorData.detail || `Signup failed (${response.status})`
+              } catch {
+                errorMessage = `Signup failed (${response.status})`
+              }
+            }
+            
+            set({ 
+              error: errorMessage,
+              isLoading: false,
+              isAuthenticated: false,
+              token: null,
+              user: null
+            })
+            return false
+          }
+        } catch (error) {
+          console.error('Network error during signup:', error)
+          let errorMessage = 'Signup failed'
+          
+          if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+            errorMessage = 'Unable to connect to server. Please check if the API is running.'
+          } else if (error instanceof Error) {
+            errorMessage = `Network error: ${error.message}`
+          } else {
+            errorMessage = 'An unexpected error occurred during signup'
+          }
+          
+          set({ 
+            error: errorMessage,
+            isLoading: false,
+            isAuthenticated: false,
+            token: null,
+            user: null
           })
           return false
         }
@@ -142,7 +239,8 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         set({ 
           isAuthenticated: false, 
-          token: null, 
+          token: null,
+          user: null,
           error: null 
         })
       },
@@ -212,6 +310,7 @@ export const useAuthStore = create<AuthState>()(
       name: 'auth-storage',
       partialize: (state) => ({
         token: state.token,
+        user: state.user,
         isAuthenticated: state.isAuthenticated
       }),
       onRehydrateStorage: () => (state) => {

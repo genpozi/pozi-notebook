@@ -99,7 +99,7 @@ docker stats
 
 ### Community Support
 - **Discord**: [https://discord.gg/37XJPXfz2w](https://discord.gg/37XJPXfz2w)
-- **GitHub Issues**: [https://github.com/lfnovo/open-notebook/issues](https://github.com/lfnovo/open-notebook/issues)
+- **GitHub Issues**: [https://github.com/genpozi/pozi-notebook/issues](https://github.com/genpozi/pozi-notebook/issues)
 - **Installation Assistant**: [ChatGPT Assistant](https://chatgpt.com/g/g-68776e2765b48191bd1bae3f30212631-open-notebook-installation-assistant)
 
 ### Before Asking for Help

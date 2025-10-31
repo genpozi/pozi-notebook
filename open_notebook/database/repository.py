@@ -46,6 +46,7 @@ def ensure_record_id(value: Union[str, RecordID]) -> RecordID:
 
 @asynccontextmanager
 async def db_connection():
+    """Get database connection with root/admin credentials"""
     db = AsyncSurreal(get_database_url())
     await db.signin(
         {
@@ -53,6 +54,20 @@ async def db_connection():
             "password": get_database_password(),
         }
     )
+    await db.use(
+        os.environ.get("SURREAL_NAMESPACE"), os.environ.get("SURREAL_DATABASE")
+    )
+    try:
+        yield db
+    finally:
+        await db.close()
+
+
+@asynccontextmanager
+async def db_connection_authenticated(token: str):
+    """Get database connection authenticated with user JWT token"""
+    db = AsyncSurreal(get_database_url())
+    await db.authenticate(token)
     await db.use(
         os.environ.get("SURREAL_NAMESPACE"), os.environ.get("SURREAL_DATABASE")
     )

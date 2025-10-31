@@ -76,7 +76,7 @@ type CreateTarget = 'source' | 'notebook' | 'podcast'
 
 export function AppSidebar() {
   const pathname = usePathname()
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const { isCollapsed, toggleCollapse } = useSidebarStore()
 
   const [createMenuOpen, setCreateMenuOpen] = useState(false)
@@ -289,6 +289,13 @@ export function AppSidebar() {
             isCollapsed && 'px-2'
           )}
         >
+          {user && !isCollapsed && (
+            <div className="px-3 py-2 text-xs text-sidebar-foreground/60">
+              <div className="font-medium text-sidebar-foreground">{user.name}</div>
+              <div className="truncate">{user.email}</div>
+            </div>
+          )}
+
           <div
             className={cn(
               'flex',

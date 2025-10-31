@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 
-from api.auth import PasswordAuthMiddleware
+from api.auth import JWTAuthMiddleware, PasswordAuthMiddleware
 from api.routers import (
     auth,
     chat,
@@ -27,6 +27,7 @@ from api.routers import (
 )
 from api.routers import commands as commands_router
 from open_notebook.database.async_migrate import AsyncMigrationManager
+from open_notebook.database.repository import db_connection, repo_query
 
 # Import commands to register them in the API process
 try:
@@ -63,6 +64,30 @@ async def lifespan(app: FastAPI):
         # Fail fast - don't start the API with an outdated database schema
         raise RuntimeError(f"Failed to run database migrations: {str(e)}") from e
 
+    # Ensure admin user exists
+    try:
+        logger.info("Checking for admin user...")
+        admin_check = await repo_query("SELECT * FROM user:admin")
+        
+        if not admin_check or len(admin_check) == 0:
+            logger.warning("Admin user not found. Creating default admin user...")
+            await repo_query("""
+                CREATE user:admin SET
+                  email = "admin@localhost",
+                  password = crypto::argon2::generate("change-me-immediately"),
+                  name = "System Administrator",
+                  role = "admin",
+                  created = time::now(),
+                  updated = time::now()
+            """)
+            logger.success("Admin user created successfully. Email: admin@localhost, Password: change-me-immediately")
+            logger.warning("⚠️  IMPORTANT: Change the admin password immediately after first login!")
+        else:
+            logger.info("Admin user already exists")
+    except Exception as e:
+        logger.error(f"Failed to create admin user: {str(e)}")
+        logger.warning("Continuing without admin user - you may need to create it manually")
+
     logger.success("API initialization completed successfully")
 
     # Yield control to the application
@@ -79,9 +104,33 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Add password authentication middleware first
-# Exclude /api/auth/status and /api/config from authentication
-app.add_middleware(PasswordAuthMiddleware, excluded_paths=["/", "/health", "/docs", "/openapi.json", "/redoc", "/api/auth/status", "/api/config"])
+# Add JWT authentication middleware
+# Exclude public endpoints from authentication
+app.add_middleware(
+    JWTAuthMiddleware,
+    excluded_paths=[
+        "/", "/health", "/docs", "/openapi.json", "/redoc",
+        "/api/auth/signup", "/api/auth/signin", "/api/auth/status", "/api/config"
+    ]
+)
+# Add JWT authentication middleware
+# Exclude public endpoints from authentication
+app.add_middleware(
+    JWTAuthMiddleware,
+    excluded_paths=[
+        "/", "/health", "/docs", "/openapi.json", "/redoc",
+        "/api/auth/signup", "/api/auth/signin", "/api/auth/status", "/api/config"
+    ]
+)
+# Add JWT authentication middleware
+# Exclude public endpoints from authentication
+app.add_middleware(
+    JWTAuthMiddleware,
+    excluded_paths=[
+        "/", "/health", "/docs", "/openapi.json", "/redoc",
+        "/api/auth/signup", "/api/auth/signin", "/api/auth/status", "/api/config"
+    ]
+)
 
 # Add CORS middleware last (so it processes first)
 app.add_middleware(

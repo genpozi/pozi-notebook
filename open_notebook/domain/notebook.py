@@ -17,6 +17,7 @@ class Notebook(ObjectModel):
     name: str
     description: str
     archived: Optional[bool] = False
+    user_id: Optional[str] = None  # Owner of the notebook
 
     @field_validator("name")
     @classmethod
@@ -146,6 +147,7 @@ class Source(ObjectModel):
     title: Optional[str] = None
     topics: Optional[List[str]] = Field(default_factory=list)
     full_text: Optional[str] = None
+    user_id: Optional[str] = None  # Owner of the source
     command: Optional[Union[str, RecordID]] = Field(
         default=None, description="Link to surreal-commands processing job"
     )
@@ -388,6 +390,7 @@ class Note(ObjectModel):
     title: Optional[str] = None
     note_type: Optional[Literal["human", "ai"]] = None
     content: Optional[str] = None
+    user_id: Optional[str] = None  # Owner of the note
 
     @field_validator("content")
     @classmethod

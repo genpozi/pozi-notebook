@@ -14,7 +14,7 @@ Before diving into the documentation below, make sure you have Open Notebook set
 
 ```bash
 # Clone the repository
-git clone https://github.com/lfnovo/open-notebook
+git clone https://github.com/genpozi/pozi-notebook
 cd open-notebook
 
 # Install dependencies with uv
@@ -133,8 +133,8 @@ We welcome contributions! Here's how to get started:
 
 ### Community
 - [Discord Server](https://discord.gg/37XJPXfz2w) - Development discussions
-- [GitHub Issues](https://github.com/lfnovo/open-notebook/issues) - Bug reports and features
-- [GitHub Discussions](https://github.com/lfnovo/open-notebook/discussions) - Ideas and questions
+- [GitHub Issues](https://github.com/genpozi/pozi-notebook/issues) - Bug reports and features
+- [GitHub Discussions](https://github.com/genpozi/pozi-notebook/discussions) - Ideas and questions
 
 ---
 

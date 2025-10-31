@@ -291,7 +291,7 @@ The Open Notebook roadmap includes exciting developments:
 If you need assistance with notes:
 
 1. **Check the Documentation**: Review this guide and other docs
-2. **Community Discussions**: Join the [GitHub Discussions](https://github.com/lfnovo/open-notebook/discussions/categories/ideas)
+2. **Community Discussions**: Join the [GitHub Discussions](https://github.com/genpozi/pozi-notebook/discussions/categories/ideas)
 3. **Feature Requests**: Suggest new note features in the discussions
 4. **Report Issues**: Use GitHub Issues for bugs or problems
 

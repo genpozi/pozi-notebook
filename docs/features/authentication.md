@@ -204,7 +204,7 @@ Need help with authentication?
 
 - 📖 Check the [Troubleshooting Guide](../troubleshooting/quick-fixes.md)
 - 💬 Join our [Discord Server](https://discord.gg/37XJPXfz2w)
-- 🐛 Report issues on [GitHub](https://github.com/lfnovo/open-notebook/issues)
+- 🐛 Report issues on [GitHub](https://github.com/genpozi/pozi-notebook/issues)
 
 ---
 

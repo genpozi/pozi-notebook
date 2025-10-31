@@ -1,0 +1,33 @@
+-- Migration 10 Rollback: Remove user authentication and multi-user support
+
+-- Remove permissions from tables (restore to FULL access)
+DEFINE TABLE notebook SCHEMAFULL PERMISSIONS FULL;
+DEFINE TABLE source SCHEMAFULL PERMISSIONS FULL;
+DEFINE TABLE note SCHEMAFULL PERMISSIONS FULL;
+DEFINE TABLE transformation SCHEMAFULL PERMISSIONS FULL;
+DEFINE TABLE source_embedding SCHEMAFULL PERMISSIONS FULL;
+DEFINE TABLE source_insight SCHEMAFULL PERMISSIONS FULL;
+
+-- Remove user-specific search functions
+REMOVE FUNCTION IF EXISTS fn::text_search_user;
+REMOVE FUNCTION IF EXISTS fn::vector_search_user;
+
+-- Remove indexes
+REMOVE INDEX IF EXISTS user_idx ON notebook;
+REMOVE INDEX IF EXISTS user_idx ON source;
+REMOVE INDEX IF EXISTS user_idx ON note;
+REMOVE INDEX IF EXISTS user_idx ON transformation;
+
+-- Remove user_id fields (keep data, just remove field definition)
+-- Note: This doesn't delete the data, just removes the field constraint
+REMOVE FIELD IF EXISTS user_id ON notebook;
+REMOVE FIELD IF EXISTS user_id ON source;
+REMOVE FIELD IF EXISTS user_id ON note;
+REMOVE FIELD IF EXISTS user_id ON transformation;
+REMOVE FIELD IF EXISTS user_id ON podcast_config;
+
+-- Remove record access
+REMOVE ACCESS IF EXISTS user_access ON DATABASE;
+
+-- Remove user table
+REMOVE TABLE IF EXISTS user;

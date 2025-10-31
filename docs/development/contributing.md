@@ -12,7 +12,7 @@ git clone https://github.com/YOUR_USERNAME/open-notebook.git
 cd open-notebook
 
 # Add the original repository as upstream
-git remote add upstream https://github.com/lfnovo/open-notebook.git
+git remote add upstream https://github.com/genpozi/pozi-notebook.git
 ```
 
 ### 2. Set Up Development Environment

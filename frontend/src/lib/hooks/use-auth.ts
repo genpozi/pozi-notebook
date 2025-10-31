@@ -3,13 +3,16 @@
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import type { LoginCredentials, SignupCredentials } from '@/lib/types/auth'
 
 export function useAuth() {
   const router = useRouter()
   const {
     isAuthenticated,
+    user,
     isLoading,
     login,
+    signup,
     logout,
     checkAuth,
     checkAuthRequired,
@@ -38,8 +41,8 @@ export function useAuth() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasHydrated, authRequired])
 
-  const handleLogin = async (password: string) => {
-    const success = await login(password)
+  const handleLogin = async (credentials: LoginCredentials) => {
+    const success = await login(credentials)
     if (success) {
       // Check if there's a stored redirect path
       const redirectPath = sessionStorage.getItem('redirectAfterLogin')
@@ -53,6 +56,14 @@ export function useAuth() {
     return success
   }
 
+  const handleSignup = async (credentials: SignupCredentials) => {
+    const success = await signup(credentials)
+    if (success) {
+      router.push('/notebooks')
+    }
+    return success
+  }
+
   const handleLogout = () => {
     logout()
     router.push('/login')
@@ -60,9 +71,11 @@ export function useAuth() {
 
   return {
     isAuthenticated,
+    user,
     isLoading: isLoading || !hasHydrated, // Treat lack of hydration as loading
     error,
     login: handleLogin,
+    signup: handleSignup,
     logout: handleLogout
   }
 }

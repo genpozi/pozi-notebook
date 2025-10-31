@@ -30,7 +30,7 @@ This setup is ideal if you want to:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/lfnovo/open-notebook.git
+git clone https://github.com/genpozi/pozi-notebook.git
 cd open-notebook
 ```
 
@@ -463,8 +463,8 @@ test: add tests for notebook creation
 ### Getting Help
 
 - **[Discord Server](https://discord.gg/37XJPXfz2w)** - Real-time development help
-- **[GitHub Discussions](https://github.com/lfnovo/open-notebook/discussions)** - Design discussions
-- **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/genpozi/pozi-notebook/discussions)** - Design discussions
+- **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Bug reports and feature requests
 
 ## 🔄 Maintenance
 
@@ -472,7 +472,7 @@ test: add tests for notebook creation
 
 ```bash
 # Add upstream remote
-git remote add upstream https://github.com/lfnovo/open-notebook.git
+git remote add upstream https://github.com/genpozi/pozi-notebook.git
 
 # Fetch upstream changes
 git fetch upstream

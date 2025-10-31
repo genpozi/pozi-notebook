@@ -123,7 +123,7 @@ Context Management → Citations → Transformations → Sharing
 ## 🆘 Need Help?
 
 - 💬 **[Discord Community](https://discord.gg/37XJPXfz2w)** - Get help and share ideas
-- 🐛 **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Report bugs and request features
+- 🐛 **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Report bugs and request features
 - 📧 **[Contact](mailto:luis@lfnovo.com)** - Direct support
 - 🌐 **[Website](https://www.open-notebook.ai)** - Project homepage
 
@@ -134,9 +134,9 @@ Context Management → Citations → Transformations → Sharing
 Open Notebook is open source and welcomes contributions:
 
 - **[Contributing Guide](development/contributing.md)** - How to get involved
-- **[GitHub Repository](https://github.com/lfnovo/open-notebook)** - Source code
-- **[License](https://github.com/lfnovo/open-notebook/blob/main/LICENSE)** - MIT License
+- **[GitHub Repository](https://github.com/genpozi/pozi-notebook)** - Source code
+- **[License](https://github.com/genpozi/pozi-notebook/blob/main/LICENSE)** - MIT License
 
 ---
 
-*This documentation is constantly evolving. Found an issue or have a suggestion? Please [open an issue](https://github.com/lfnovo/open-notebook/issues) or contribute directly!*
+*This documentation is constantly evolving. Found an issue or have a suggestion? Please [open an issue](https://github.com/genpozi/pozi-notebook/issues) or contribute directly!*

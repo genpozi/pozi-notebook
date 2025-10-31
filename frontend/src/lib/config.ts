@@ -103,16 +103,18 @@ async function fetchConfig(): Promise<AppConfig> {
   }
 
   // Priority: Runtime config > Build-time env var > Smart default
-  const baseUrl = runtimeApiUrl || envApiUrl || defaultApiUrl
-  console.log('🔧 [Config] Final base URL to try:', baseUrl)
-  console.log('🔧 [Config] Selection priority: runtime=' + (runtimeApiUrl ? '✅' : '❌') +
+  // Note: runtimeApiUrl can be empty string (for same-origin proxy)
+  const baseUrl = runtimeApiUrl !== null ? runtimeApiUrl : (envApiUrl || defaultApiUrl)
+  console.log('🔧 [Config] Final base URL to try:', baseUrl === '' ? '(same-origin)' : baseUrl)
+  console.log('🔧 [Config] Selection priority: runtime=' + (runtimeApiUrl !== null ? '✅' : '❌') +
               ', build-time=' + (envApiUrl ? '✅' : '❌') +
-              ', smart-default=' + (!runtimeApiUrl && !envApiUrl ? '✅' : '❌'))
+              ', smart-default=' + (runtimeApiUrl === null && !envApiUrl ? '✅' : '❌'))
 
   try {
-    console.log('🔧 [Config] Fetching backend config from:', `${baseUrl}/api/config`)
+    const configUrl = baseUrl === '' ? '/api/config' : `${baseUrl}/api/config`
+    console.log('🔧 [Config] Fetching backend config from:', configUrl)
     // Try to fetch runtime config from backend API
-    const response = await fetch(`${baseUrl}/api/config`, {
+    const response = await fetch(configUrl, {
       cache: 'no-store',
     })
 

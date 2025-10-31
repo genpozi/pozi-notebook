@@ -388,7 +388,7 @@ Or provide it when logging into the web interface.
 - If transformations complete successfully after refresh, you only need to increase `API_CLIENT_TIMEOUT`
 - First time running a model may be slower due to model loading
 
-**Related GitHub Issue**: [#131](https://github.com/lfnovo/open-notebook/issues/131)
+**Related GitHub Issue**: [#131](https://github.com/genpozi/pozi-notebook/issues/131)
 
 ### Memory and Performance Issues
 
@@ -735,7 +735,7 @@ If you've tried the solutions above and are still experiencing issues:
 
 3. **Ask for help**:
    - Discord: https://discord.gg/37XJPXfz2w
-   - GitHub Issues: https://github.com/lfnovo/open-notebook/issues
+   - GitHub Issues: https://github.com/genpozi/pozi-notebook/issues
    - Include all diagnostic information
 
 Remember to remove API keys and sensitive information before sharing logs or configuration files.

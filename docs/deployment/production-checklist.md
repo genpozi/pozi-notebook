@@ -399,7 +399,7 @@ This checklist ensures your Open Notebook deployment is secure, performant, and 
 
 - **Documentation**: [Full docs](../index.md)
 - **Discord**: [Community support](https://discord.gg/37XJPXfz2w)
-- **GitHub**: [Report issues](https://github.com/lfnovo/open-notebook/issues)
+- **GitHub**: [Report issues](https://github.com/genpozi/pozi-notebook/issues)
 
 ---
 

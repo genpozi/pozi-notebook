@@ -174,7 +174,7 @@ Now that you have Open Notebook running:
 ### Getting Help
 - **💬 [Discord Community](https://discord.gg/37XJPXfz2w)** - Get help and share ideas
 - **📖 [Full Documentation](../user-guide/)** - Complete feature guide
-- **🐛 [Report Issues](https://github.com/lfnovo/open-notebook/issues)** - Found a bug?
+- **🐛 [Report Issues](https://github.com/genpozi/pozi-notebook/issues)** - Found a bug?
 
 ## Common Issues
 

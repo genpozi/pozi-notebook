@@ -42,7 +42,7 @@ docker compose up -d
 ### From Source (Developers)
 ```bash
 # Clone and setup
-git clone https://github.com/lfnovo/open-notebook
+git clone https://github.com/genpozi/pozi-notebook
 cd open-notebook
 cp .env.example .env
 # Edit .env with your API keys
@@ -273,7 +273,7 @@ sudo usermod -aG docker $USER
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/lfnovo/open-notebook.git
+git clone https://github.com/genpozi/pozi-notebook.git
 cd open-notebook
 ```
 
@@ -783,7 +783,7 @@ sudo chown -R $USER:$USER ./surreal_data
 
 #### Community Support
 - **Discord**: https://discord.gg/37XJPXfz2w
-- **GitHub Issues**: https://github.com/lfnovo/open-notebook/issues
+- **GitHub Issues**: https://github.com/genpozi/pozi-notebook/issues
 - **Installation Assistant**: https://chatgpt.com/g/g-68776e2765b48191bd1bae3f30212631-open-notebook-installation-assistant
 
 #### Bug Reports

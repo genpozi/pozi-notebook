@@ -363,8 +363,8 @@ uv run streamlit run app_home.py
 If you encounter issues during migration:
 
 - **Discord**: Join our [Discord community](https://discord.gg/37XJPXfz2w) for real-time help
-- **GitHub Issues**: Report bugs at [github.com/lfnovo/open-notebook/issues](https://github.com/lfnovo/open-notebook/issues)
-- **Documentation**: Check [full documentation](https://github.com/lfnovo/open-notebook/tree/main/docs)
+- **GitHub Issues**: Report bugs at [github.com/genpozi/pozi-notebook/issues](https://github.com/genpozi/pozi-notebook/issues)
+- **Documentation**: Check [full documentation](https://github.com/genpozi/pozi-notebook/tree/main/docs)
 
 ## FAQs
 

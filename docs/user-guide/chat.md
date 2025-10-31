@@ -409,7 +409,7 @@ The Ask feature provides sophisticated research assistance:
 ### Resources for Chat Support
 
 1. **Documentation**: This guide and other help materials
-2. **Community Forum**: [GitHub Discussions](https://github.com/lfnovo/open-notebook/discussions)
+2. **Community Forum**: [GitHub Discussions](https://github.com/genpozi/pozi-notebook/discussions)
 3. **Feature Requests**: Suggest improvements in the discussions
 4. **Bug Reports**: Report issues through GitHub Issues
 

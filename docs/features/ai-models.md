@@ -858,7 +858,7 @@ echo $OPENAI_API_KEY
 
 **Community Support**
 - [Discord Server](https://discord.gg/37XJPXfz2w) - Get help from the community
-- [GitHub Issues](https://github.com/lfnovo/open-notebook/issues) - Report bugs and request features
+- [GitHub Issues](https://github.com/genpozi/pozi-notebook/issues) - Report bugs and request features
 
 **Documentation**
 - [User Guide](../user-guide/index.md) - Learn how to use Open Notebook

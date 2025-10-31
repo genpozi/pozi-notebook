@@ -1,7 +1,7 @@
 <a id="readme-top"></a>
 
 <!-- [![Contributors][contributors-shield]][contributors-url] -->
-[![Version](https://img.shields.io/badge/version-1.1.0--beta-blue.svg)](https://github.com/lfnovo/open-notebook/releases)
+[![Version](https://img.shields.io/badge/version-1.1.0--beta-blue.svg)](https://github.com/genpozi/pozi-notebook/releases)
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -12,11 +12,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/lfnovo/open-notebook">
+  <a href="https://github.com/genpozi/pozi-notebook">
     <img src="docs/assets/hero.svg" alt="Logo">
   </a>
 
-  <h3 align="center">Open Notebook</h3>
+  <h3 align="center">Pozi Notebook</h3>
 
   <p align="center">
     An open source, privacy-focused alternative to Google's Notebook LM!
@@ -314,13 +314,13 @@ Ready to deploy Open Notebook for your team or publicly? We have comprehensive g
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=lfnovo/open-notebook&type=date&legend=top-left)](https://www.star-history.com/#lfnovo/open-notebook&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=genpozi/pozi-notebook&type=date&legend=top-left)](https://www.star-history.com/#genpozi/pozi-notebook&type=date&legend=top-left)
 
 ### 🛠️ Full Installation
 For development or customization:
 ```bash
-git clone https://github.com/lfnovo/open-notebook
-cd open-notebook
+git clone https://github.com/genpozi/pozi-notebook
+cd pozi-notebook
 make start-all
 ```
 
@@ -426,7 +426,7 @@ Thanks to the [Esperanto](https://github.com/lfnovo/esperanto) library, we suppo
 - **Enhanced Citations**: Improved layout and finer control for source citations
 - **Multiple Chat Sessions**: Manage different conversations within notebooks
 
-See the [open issues](https://github.com/lfnovo/open-notebook/issues) for a full list of proposed features and known issues.
+See the [open issues](https://github.com/genpozi/pozi-notebook/issues) for a full list of proposed features and known issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -435,7 +435,7 @@ See the [open issues](https://github.com/lfnovo/open-notebook/issues) for a full
 
 ### Join the Community
 - 💬 **[Discord Server](https://discord.gg/37XJPXfz2w)** - Get help, share ideas, and connect with other users
-- 🐛 **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Report bugs and request features
+- 🐛 **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Report bugs and request features
 - ⭐ **Star this repo** - Show your support and help others discover Open Notebook
 
 ### Contributing
@@ -463,7 +463,7 @@ Open Notebook is MIT licensed. See the [LICENSE](LICENSE) file for details.
 
 **Community Support**:
 - 💬 [Discord Server](https://discord.gg/37XJPXfz2w) - Get help, share ideas, and connect with users
-- 🐛 [GitHub Issues](https://github.com/lfnovo/open-notebook/issues) - Report bugs and request features
+- 🐛 [GitHub Issues](https://github.com/genpozi/pozi-notebook/issues) - Report bugs and request features
 - 🌐 [Website](https://www.open-notebook.ai) - Learn more about the project
 
 ## 🙏 Acknowledgments
@@ -481,16 +481,16 @@ Open Notebook is built on the shoulders of amazing open-source projects:
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/lfnovo/open-notebook.svg?style=for-the-badge
-[contributors-url]: https://github.com/lfnovo/open-notebook/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/lfnovo/open-notebook.svg?style=for-the-badge
-[forks-url]: https://github.com/lfnovo/open-notebook/network/members
-[stars-shield]: https://img.shields.io/github/stars/lfnovo/open-notebook.svg?style=for-the-badge
-[stars-url]: https://github.com/lfnovo/open-notebook/stargazers
-[issues-shield]: https://img.shields.io/github/issues/lfnovo/open-notebook.svg?style=for-the-badge
-[issues-url]: https://github.com/lfnovo/open-notebook/issues
-[license-shield]: https://img.shields.io/github/license/lfnovo/open-notebook.svg?style=for-the-badge
-[license-url]: https://github.com/lfnovo/open-notebook/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/genpozi/pozi-notebook.svg?style=for-the-badge
+[contributors-url]: https://github.com/genpozi/pozi-notebook/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/genpozi/pozi-notebook.svg?style=for-the-badge
+[forks-url]: https://github.com/genpozi/pozi-notebook/network/members
+[stars-shield]: https://img.shields.io/github/stars/genpozi/pozi-notebook.svg?style=for-the-badge
+[stars-url]: https://github.com/genpozi/pozi-notebook/stargazers
+[issues-shield]: https://img.shields.io/github/issues/genpozi/pozi-notebook.svg?style=for-the-badge
+[issues-url]: https://github.com/genpozi/pozi-notebook/issues
+[license-shield]: https://img.shields.io/github/license/genpozi/pozi-notebook.svg?style=for-the-badge
+[license-url]: https://github.com/genpozi/pozi-notebook/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/lfnovo
 [product-screenshot]: images/screenshot.png

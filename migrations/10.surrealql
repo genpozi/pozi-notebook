@@ -1,0 +1,248 @@
+-- Migration 10: Add user authentication and multi-user support
+-- This migration adds user table, authentication, and user_id fields to existing tables
+
+-- ============================================================================
+-- STEP 1: Create user table
+-- ============================================================================
+
+DEFINE TABLE user SCHEMAFULL
+  PERMISSIONS 
+    FOR select, update, delete WHERE id = $auth.id
+    FOR create WHERE true;  -- Allow signup
+
+DEFINE FIELD email ON user TYPE string ASSERT string::is_email($value);
+DEFINE FIELD password ON user TYPE string;
+DEFINE FIELD name ON user TYPE string;
+DEFINE FIELD role ON user TYPE string DEFAULT "user" ASSERT $value IN ["user", "admin"];
+DEFINE FIELD created ON user DEFAULT time::now() VALUE $before OR time::now();
+DEFINE FIELD updated ON user DEFAULT time::now() VALUE time::now();
+
+-- Unique email constraint
+DEFINE INDEX email_unique ON user FIELDS email UNIQUE;
+
+-- ============================================================================
+-- STEP 2: Define record access for authentication
+-- ============================================================================
+
+DEFINE ACCESS user_access ON DATABASE TYPE RECORD
+  SIGNUP (
+    CREATE user SET 
+      email = $email,
+      name = $name,
+      password = crypto::argon2::generate($password),
+      role = "user",
+      created = time::now(),
+      updated = time::now()
+  )
+  SIGNIN (
+    SELECT * FROM user 
+    WHERE email = $email 
+    AND crypto::argon2::compare(password, $password)
+  )
+  DURATION FOR TOKEN 24h, FOR SESSION 7d;
+
+-- ============================================================================
+-- STEP 3: Add user_id fields to existing tables
+-- ============================================================================
+
+-- Add user_id to notebook (nullable for migration)
+DEFINE FIELD user_id ON TABLE notebook TYPE option<record<user>>;
+
+-- Add user_id to source (nullable for migration)
+DEFINE FIELD user_id ON TABLE source TYPE option<record<user>>;
+
+-- Add user_id to note (nullable for migration)
+DEFINE FIELD user_id ON TABLE note TYPE option<record<user>>;
+
+-- Add user_id to transformation (nullable for migration)
+DEFINE FIELD user_id ON TABLE transformation TYPE option<record<user>>;
+
+-- Add user_id to podcast_config (nullable for migration)
+DEFINE FIELD user_id ON TABLE podcast_config TYPE option<record<user>>;
+
+-- ============================================================================
+-- STEP 4: Add indexes for performance
+-- ============================================================================
+
+DEFINE INDEX user_idx ON notebook FIELDS user_id;
+DEFINE INDEX user_idx ON source FIELDS user_id;
+DEFINE INDEX user_idx ON note FIELDS user_id;
+DEFINE INDEX user_idx ON transformation FIELDS user_id;
+
+-- ============================================================================
+-- STEP 5: Create default admin user
+-- ============================================================================
+
+-- Create admin user for existing data
+-- Password: "change-me-immediately" (MUST be changed after first login)
+CREATE user:admin SET
+  email = "admin@localhost",
+  password = crypto::argon2::generate("change-me-immediately"),
+  name = "System Administrator",
+  role = "admin",
+  created = time::now(),
+  updated = time::now();
+
+-- ============================================================================
+-- STEP 6: Migrate existing data to admin user
+-- ============================================================================
+
+-- Assign all existing notebooks to admin
+UPDATE notebook SET user_id = user:admin WHERE user_id = NONE;
+
+-- Assign all existing sources to admin
+UPDATE source SET user_id = user:admin WHERE user_id = NONE;
+
+-- Assign all existing notes to admin
+UPDATE note SET user_id = user:admin WHERE user_id = NONE;
+
+-- Assign all existing transformations to admin
+UPDATE transformation SET user_id = user:admin WHERE user_id = NONE;
+
+-- Assign all existing podcast configs to admin
+UPDATE podcast_config SET user_id = user:admin WHERE user_id = NONE;
+
+-- ============================================================================
+-- STEP 7: Update table permissions for data isolation
+-- ============================================================================
+
+-- Notebook permissions: users can only access their own, admins can access all
+DEFINE TABLE notebook SCHEMAFULL
+  PERMISSIONS 
+    FOR select, create, update, delete 
+    WHERE user_id = $auth.id OR $auth.role = "admin";
+
+-- Source permissions: users can only access their own, admins can access all
+DEFINE TABLE source SCHEMAFULL
+  PERMISSIONS 
+    FOR select, create, update, delete 
+    WHERE user_id = $auth.id OR $auth.role = "admin";
+
+-- Note permissions: users can only access their own, admins can access all
+DEFINE TABLE note SCHEMAFULL
+  PERMISSIONS 
+    FOR select, create, update, delete 
+    WHERE user_id = $auth.id OR $auth.role = "admin";
+
+-- Transformation permissions: users can access their own + public ones
+DEFINE TABLE transformation SCHEMAFULL
+  PERMISSIONS 
+    FOR select WHERE user_id = $auth.id OR $auth.role = "admin"
+    FOR create, update, delete WHERE user_id = $auth.id OR $auth.role = "admin";
+
+-- Source embedding permissions: inherit from source
+DEFINE TABLE source_embedding SCHEMAFULL
+  PERMISSIONS 
+    FOR select, create, update, delete 
+    WHERE source.user_id = $auth.id OR $auth.role = "admin";
+
+-- Source insight permissions: inherit from source
+DEFINE TABLE source_insight SCHEMAFULL
+  PERMISSIONS 
+    FOR select, create, update, delete 
+    WHERE source.user_id = $auth.id OR $auth.role = "admin";
+
+-- ============================================================================
+-- STEP 8: Update search functions to respect user boundaries
+-- ============================================================================
+
+-- Update text search function to filter by user
+DEFINE FUNCTION IF NOT EXISTS fn::text_search_user($query_text: string, $match_count: int, $sources:bool, $show_notes:bool, $user_id: record<user>) {
+  
+    let $source_title_search = 
+        IF $sources {(
+            SELECT id as item_id, math::max(search::score(1)) AS relevance
+            FROM source
+            WHERE title @1@ $query_text AND user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+    
+    let $source_embedding_search = 
+         IF $sources {(
+             SELECT source as item_id, math::max(search::score(1)) AS relevance
+            FROM source_embedding
+            WHERE content @1@ $query_text AND source.user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+
+    let $source_full_search = 
+         IF $sources {(
+            SELECT id as item_id, math::max(search::score(1)) AS relevance
+            FROM source
+            WHERE full_text @1@ $query_text AND user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+    
+    let $source_insight_search = 
+         IF $sources {(
+             SELECT source as item_id, math::max(search::score(1)) AS relevance
+            FROM source_insight
+            WHERE content @1@ $query_text AND source.user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+
+    let $note_title_search = 
+         IF $show_notes {(
+             SELECT id as item_id, math::max(search::score(1)) AS relevance
+            FROM note
+            WHERE title @1@ $query_text AND user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+
+     let $note_content_search = 
+         IF $show_notes {(
+             SELECT id as item_id, math::max(search::score(1)) AS relevance
+            FROM note
+            WHERE content @1@ $query_text AND user_id = $user_id
+            GROUP BY item_id)}
+        ELSE { [] };
+
+    let $source_chunk_results = array::union($source_embedding_search, $source_full_search);
+    
+    let $source_asset_results = array::union($source_title_search, $source_insight_search);
+
+    let $source_results = array::union($source_chunk_results, $source_asset_results );
+    let $note_results = array::union($note_title_search, $note_content_search );
+    let $final_results = array::union($source_results, $note_results );
+
+    RETURN (SELECT item_id, math::max(relevance) as relevance from $final_results
+        group by item_id ORDER BY relevance DESC LIMIT $match_count);
+};
+
+-- Update vector search function to filter by user
+DEFINE FUNCTION IF NOT EXISTS fn::vector_search_user($query: array<float>, $match_count: int, $sources:bool, $show_notes:bool, $user_id: record<user>) {
+   
+    let $source_embedding_search = 
+         IF $sources {(
+            SELECT source as item_id, content, vector::similarity::cosine(embedding, $query) as similarity
+            FROM source_embedding 
+            WHERE source.user_id = $user_id
+            LIMIT $match_count)}
+        ELSE { [] };
+
+    let $source_insight_search = 
+         IF $sources {(
+             SELECT source as item_id, content, vector::similarity::cosine(embedding, $query) as similarity
+                FROM source_insight 
+                WHERE source.user_id = $user_id
+                LIMIT $match_count)}
+        ELSE { [] };
+
+     let $note_content_search = 
+         IF $show_notes {(
+                SELECT id as item_id, content, vector::similarity::cosine(embedding, $query) as similarity
+                FROM note 
+                WHERE user_id = $user_id
+                LIMIT $match_count)}
+        ELSE { [] };
+
+    let $source_chunk_results = array::union($source_embedding_search, $source_insight_search);
+    
+    let $source_results = array::union($source_chunk_results, $source_insight_search);
+
+    let $note_results = $note_content_search;
+    let $final_results = array::union($source_results, $note_results );
+
+    RETURN (SELECT item_id, math::max(similarity) as similarity from $final_results
+        group by item_id ORDER BY similarity DESC LIMIT $match_count);
+};

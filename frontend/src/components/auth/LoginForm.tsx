@@ -12,6 +12,7 @@ import { AlertCircle } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 
 export function LoginForm() {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { login, isLoading, error } = useAuth()
   const { authRequired, checkAuthRequired, hasHydrated, isAuthenticated } = useAuthStore()
@@ -125,9 +126,9 @@ export function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (password.trim()) {
+    if (email.trim() && password.trim()) {
       try {
-        await login(password)
+        await login({ email, password })
       } catch (error) {
         console.error('Unhandled error during login:', error)
         // The auth store should handle most errors, but this catches any unhandled ones
@@ -141,11 +142,22 @@ export function LoginForm() {
         <CardHeader className="text-center">
           <CardTitle>Open Notebook</CardTitle>
           <CardDescription>
-            Enter your password to access the application
+            Sign in to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+                autoComplete="email"
+              />
+            </div>
+
             <div>
               <Input
                 type="password"
@@ -153,6 +165,7 @@ export function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
+                autoComplete="current-password"
               />
             </div>
 
@@ -166,10 +179,17 @@ export function LoginForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={isLoading || !password.trim()}
+              disabled={isLoading || !email.trim() || !password.trim()}
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
+
+            <div className="text-center text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <a href="/signup" className="text-primary hover:underline">
+                Sign up
+              </a>
+            </div>
 
             {configInfo && (
               <div className="text-xs text-center text-muted-foreground pt-2 border-t">

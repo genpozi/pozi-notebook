@@ -40,6 +40,7 @@ dependencies = [
     "surrealdb>=1.0.4",
     "surreal-commands>=1.0.13",
     "podcast-creator>=0.7.0",
+    "pyjwt>=2.10.1",
 ]
 
 [tool.setuptools]

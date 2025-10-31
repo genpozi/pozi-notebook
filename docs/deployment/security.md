@@ -465,7 +465,7 @@ If you discover security vulnerabilities:
 For security configuration help:
 
 - **[Discord Server](https://discord.gg/37XJPXfz2w)** - Real-time help
-- **[GitHub Issues](https://github.com/lfnovo/open-notebook/issues)** - Configuration problems
+- **[GitHub Issues](https://github.com/genpozi/pozi-notebook/issues)** - Configuration problems
 - **[Documentation](../index.md)** - Additional guides
 
 ### Best Practices
